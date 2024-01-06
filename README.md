@@ -1,2 +1,7 @@
-# mycode
-Clean Code editor
+# MyCode
+
+
+---
+
+Made by:
+Masco
