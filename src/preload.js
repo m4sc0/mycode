@@ -7,4 +7,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
         ipcRenderer.invoke('openDir')
         console.log('fired openDir')
     },
+    minimize: () => ipcRenderer.invoke('minimize'),
+    maximize: () => ipcRenderer.invoke('maximize'),
+    close: () => ipcRenderer.invoke('close')
 })

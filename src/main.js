@@ -66,7 +66,23 @@ function apiServe() {
 		console.log('setting title to: ' + win.getTitle());
 	  })
 
-	ipcMain.handle('openDir', openDirectory)
+	ipcMain.handle('openDir', openDirectory);
+
+	ipcMain.handle('minimize', () => {
+		window.minimize();
+	});
+
+	ipcMain.handle('maximize', () => {
+		if (window.isMaximized()) {
+			window.unmaximize();
+		} else {
+			window.maximize();
+		}
+	});
+
+	ipcMain.handle('close', () => {
+		window.close();
+	});
 }
 
 // Functions for api
