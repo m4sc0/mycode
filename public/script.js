@@ -34,23 +34,11 @@ openBtn.addEventListener("click", async () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const folders = document.querySelectorAll('#fileTree .folder-interactive');
+    const folders = document.querySelectorAll('#fileTree .folder');
 
     folders.forEach(folder => {
-        const toggle = folder.querySelector('.folder-toggle');
-        toggle.addEventListener('click', function() {
-            this.parentElement.classList.toggle('open');
-
-            const childUl = this.nextElementSibling;
-            if (childUl.style.display === 'none') {
-                childUl.style.display = 'block';
-            } else {
-                childUl.style.display = 'none';
-            }
+        folder.addEventListener('click', function() {
+            folder.querySelector('ul').classList.toggle('open');
         });
     });
-
-    // Initially hide all child lists
-    const allSubLists = document.querySelectorAll('#fileTree .folder-interactive ul');
-    allSubLists.forEach(ul => ul.style.display = 'none');
 });

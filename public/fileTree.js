@@ -1,12 +1,14 @@
 export function createListFromTree(tree) {
     let htmlContent = "";
-	
-	console.log(tree);
+
     function processNode(node) {
         const isFolder = node.type === "directory";
-        let nodeHTML = `<li data-path="${node.path}" data-name="${node.name}" class="${isFolder ? "folder" : "file"}">${node.name}`;
+        let nodeName = node.name;
+        let nodeHTML = `<li data-path="${node.path}" data-name="${nodeName}" class="${isFolder ? "folder" : "file"}">`;
 
         if (isFolder) {
+            // Wrap folder name in a span for separate click handling
+            nodeHTML += `<span class="folder-name">${nodeName}</span>`;
             nodeHTML += "<ul>";
 
             // Sort children: directories first, then files
@@ -22,13 +24,15 @@ export function createListFromTree(tree) {
                     return a.name.localeCompare(b.name); // Sort alphabetically for same types
                 });
 
-				sortedChildren.forEach((child) => {
-					// console.log(child);
+                sortedChildren.forEach((child) => {
                     nodeHTML += processNode(child);
                 });
             }
 
             nodeHTML += "</ul>";
+        } else {
+            // For files, just display the name
+            nodeHTML += nodeName;
         }
 
         nodeHTML += "</li>";
