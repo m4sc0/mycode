@@ -34,11 +34,26 @@ openBtn.addEventListener("click", async () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const folders = document.querySelectorAll('#fileTree .folder');
+    let folders;
+    setInterval(() => {
+        folders = document.querySelectorAll('#fileTree .folder');
+    }, 100);
+
+
+    console.log(folders);
 
     folders.forEach(folder => {
         folder.addEventListener('click', function() {
             folder.querySelector('ul').classList.toggle('open');
         });
     });
+
+    const files = document.querySelectorAll('#fileTree .file');
+
+    files.forEach(file => {
+        file.addEventListener('click', async function() {
+            // const data = await window.electronAPI.openFile(file.getAttribute('data-path'));
+            console.log(file.innerHTML);
+        })
+    })
 });

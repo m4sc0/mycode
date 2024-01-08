@@ -4,6 +4,7 @@ const path = require('path')
 const { readdir } = require('fs/promises');
 const { resolve } = require('path');
 const dirTree = require("directory-tree");
+const fs = require('node:fs');
 
 let window
 function createWindow() {
@@ -69,6 +70,10 @@ function apiServe() {
 
 	ipcMain.handle('openDir', openDirectory);
 
+	ipcMain.handle('openFile', (event, path) => {
+		openFile(path);
+	})
+
 	ipcMain.handle('minimize', () => {
 		window.minimize();
 	});
@@ -88,7 +93,7 @@ function apiServe() {
 
 // Functions for api
 async function openDirectory() {
-	const { canceled, filePaths } = await dialog.showOpenDialog({ properties: ['openDirectory', 'showHiddenFiles'] });
+	const { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath: 'X:\\Projekte\\mycode\\' ,properties: ['openDirectory', 'showHiddenFiles'] });
 	if (canceled) {
 		console.log('No Directory selected');
 		return;
@@ -102,6 +107,15 @@ async function openDirectory() {
 		}
 	);
 
-	console.log(fileTree);
 	return fileTree;
+}
+
+async function openFile(path) {
+	fs.readFile(path, "utf8", (err, data) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		return data;
+	})
 }

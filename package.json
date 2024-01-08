@@ -8,6 +8,7 @@
 	},
 	"dependencies": {
 		"directory-tree": "^3.5.1",
-		"electron": "^28.1.1"
+		"electron": "^28.1.1",
+		"npx": "^10.2.2"
 	}
 }
