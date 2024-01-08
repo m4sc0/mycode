@@ -3,9 +3,25 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', Arial, Helvetica, sans-serif;
+    transition: all 100ms ease-in-out;
 }
 *.code {
     font-family: 'Noto Sans Mono', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    background: #0000;
+}
+::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 5px;
+}
+
+body {
+    background: #111;
+    color: #fff;
 }
 
 .drag {
@@ -21,14 +37,15 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #222;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #aaa;
+    opacity: 0.5;
 }
 
 #titlebar #titlebar-title {
-    color: #fff;
     font-size: 1.2rem;
     margin-left: 0.5rem;
 }
@@ -41,15 +58,164 @@
 
 #titlebar #titlebar-buttons .titlebar-button {
     padding: 0.75rem;
-    color: #fff;
     cursor: pointer;
 }
 
 #titlebar #titlebar-buttons .titlebar-button:hover {
+    color: #fff;
     background-color: #444;
 }
 
 main {
-    background: #000;
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(100% - 40px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #777;
+    padding: .5rem;
     margin-top: 40px;
+    gap: 10px;
+    overflow: hidden;
+}
+
+#fileTree {
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#fileTree #controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    border-radius: 5px;
+}
+
+#fileTree #controls button {
+    width: 100%;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #666;
+}
+
+#fileTree #controls button:hover {
+    background-color: #444;
+    color: #aaa;
+    border-radius: 5px;
+}
+
+#fileTree #file-tree-container {
+    list-style-type: none;
+    white-space: nowrap;
+    padding: 1rem;
+    height: 100%;
+}
+
+#fileTree #file-tree-container .no-folder-choosen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#fileTree #file-tree-container > ul {
+    list-style-type: none;
+    overflow-y: scroll;
+}
+
+#fileTree #file-tree-container ul {
+    list-style-type: none;
+}
+
+#fileTree #file-tree-container li {
+    cursor: pointer;
+    padding: 0.2em 0;
+}
+
+#fileTree #file-tree-container .folder:before {
+    content: "📁 ";
+    color: #ffcc00;
+}
+
+#fileTree #file-tree-container .file:before {
+    content: "📄 ";
+    color: #00ccff;
+}
+
+#fileTree #file-tree-container .folder:hover, 
+#fileTree #file-tree-container .file:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+/* Indentation for nested folders and files */
+#fileTree #file-tree-container ul ul {
+    margin-left: .5rem;
+}
+
+/* Interaction styles */
+.folder-interactive {
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+.folder-interactive:hover {
+    background-color: #555;
+    color: #fff;
+}
+
+/* Optional: Animation for expanding/collapsing folders */
+.folder-toggle {
+    cursor: pointer;
+    user-select: none;
+}
+
+.folder-toggle::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 5px;
+    transition: transform 0.3s;
+}
+
+.folder-toggle.open::before {
+    transform: rotate(90deg);
+}
+
+#code-editor {
+    height: 100%;
+    width: 100%;
+    background: #333;
+    /* padding: 0.5rem; */
+    box-sizing: border-box;
+    border-radius: .5rem;
+    display: flex;
+    font-size: 24px;
+    flex-grow: 2;
+}
+
+#code-editor #line-numbers {
+    height: 100%;
+    padding: 0.5rem;
+    border-right: 1px solid #555;
+    color: #555;
+    user-select: none;
+}
+
+#code-editor #code {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    color: #a7a7a7;
+    font-family: 'Noto Sans Mono', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

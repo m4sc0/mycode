@@ -3,6 +3,7 @@ const { BrowserWindow, app, shell, ipcMain, dialog } = require('electron')
 const path = require('path')
 const { readdir } = require('fs/promises');
 const { resolve } = require('path');
+const dirTree = require("directory-tree");
 
 let window
 function createWindow() {
@@ -87,40 +88,20 @@ function apiServe() {
 
 // Functions for api
 async function openDirectory() {
-    const { canceled, filePaths } = await dialog.showOpenDialog({ properties: ['openDirectory', 'showHiddenFiles'] });
-    if (canceled) {
-        console.log('No Directory selected');
-        return;
-    }
+	const { canceled, filePaths } = await dialog.showOpenDialog({ properties: ['openDirectory', 'showHiddenFiles'] });
+	if (canceled) {
+		console.log('No Directory selected');
+		return;
+	}
 
-    async function readDir(path) {
-        const filesInPath = await readdir(path, { withFileTypes: true });
-        const children = await Promise.all(filesInPath.map(async (fileInPath) => {
-            const resolvedPath = resolve(path, fileInPath.name);
-            if (fileInPath.isDirectory()) {
-                return {
-                    path: resolvedPath,
-                    file: false,
-                    children: await readDir(resolvedPath)
-                };
-            } else {
-                return {
-                    path: resolvedPath,
-                    file: true,
-                    children: []
-                };
-            }
-        }));
+	const fileTree = dirTree(
+		filePaths[0],
+		{
+			attributes: ['type', 'extension'],
+			depth: 10
+		}
+	);
 
-        return children;
-    }
-
-    const fileTree = {
-        path: filePaths[0],
-        file: false,
-        children: await readDir(filePaths[0])
-    };
-
-    console.log(JSON.stringify(fileTree, null, 2));
-    return fileTree;
+	console.log(fileTree);
+	return fileTree;
 }
