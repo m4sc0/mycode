@@ -25,6 +25,8 @@ openBtn.addEventListener("click", async () => {
             const container = document.getElementById("file-tree-container");
             console.log(result);
             container.innerHTML = createListFromTree(result);
+
+            eventListenerForFolders();
         } else {
             console.log("No file tree returned or invalid file tree structure");
         }
@@ -33,27 +35,27 @@ openBtn.addEventListener("click", async () => {
     }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    let folders;
-    setInterval(() => {
-        folders = document.querySelectorAll('#fileTree .folder');
-    }, 100);
+async function eventListenerForFolders() {
+    const folders = document.querySelectorAll("#fileTree .folder-name")
+    const files = document.querySelectorAll('#fileTree .file')
 
-
-    console.log(folders);
-
-    folders.forEach(folder => {
-        folder.addEventListener('click', function() {
-            folder.querySelector('ul').classList.toggle('open');
-        });
-    });
-
-    const files = document.querySelectorAll('#fileTree .file');
-
-    files.forEach(file => {
-        file.addEventListener('click', async function() {
-            // const data = await window.electronAPI.openFile(file.getAttribute('data-path'));
-            console.log(file.innerHTML);
+    if (folders && files) {
+        folders.forEach(folder => {
+            folder.addEventListener('click', () => {
+                const list = folder.nextElementSibling;
+                console.log(list);
+                list.classList.toggle('open');
+                folder.classList.toggle('open');
+            })
         })
-    })
-});
+
+        files.forEach(file => {
+            file.addEventListener('click', async () => {
+                const path = file.getAttribute('data-path');
+                const fileContent = await window.electronAPI.openFile(path);
+                const editor = document.getElementById('code');
+                editor.innerHTML = fileContent;
+            })
+        })
+    }
+}

@@ -4,7 +4,7 @@ const path = require('path')
 const { readdir } = require('fs/promises');
 const { resolve } = require('path');
 const dirTree = require("directory-tree");
-const fs = require('node:fs');
+const fs = require('fs').promises;
 
 let window
 function createWindow() {
@@ -70,8 +70,8 @@ function apiServe() {
 
 	ipcMain.handle('openDir', openDirectory);
 
-	ipcMain.handle('openFile', (event, path) => {
-		openFile(path);
+	ipcMain.handle('openFile', async (event, path) => {
+		return await openFile(path);
 	})
 
 	ipcMain.handle('minimize', () => {
@@ -111,11 +111,11 @@ async function openDirectory() {
 }
 
 async function openFile(path) {
-	fs.readFile(path, "utf8", (err, data) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		return data;
-	})
+    try {
+        const data = await fs.readFile(path, "utf8");
+        return data;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
 }

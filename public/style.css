@@ -115,10 +115,10 @@ main {
 #fileTree #file-tree-container {
     list-style-type: none;
     white-space: nowrap;
-    padding: 1rem;
     height: 100%;
     overflow-y: auto; /* To add scrolling to the entire container */
     overflow-x: hidden;
+    user-select: none;
 }
 
 #fileTree #file-tree-container .no-folder-choosen {
@@ -149,9 +149,14 @@ main {
 }
 
 /* Icons for folders and files */
-#fileTree #file-tree-container .folder-name:before {
+#fileTree #file-tree-container .folder-name::before {
     content: "▶ ";
     color: #00ccff;
+    transform: rotate(0deg);
+}
+
+#fileTree #file-tree-container .folder-name.open::before {
+    transform: rotate(90deg);
 }
 
 #fileTree #file-tree-container .file:before {
@@ -172,7 +177,7 @@ main {
     display: none;
 }
 
-#fileTree #file-tree-container .folder.open ul {
+#fileTree #file-tree-container .folder ul.open {
     display: block;
 }
 
@@ -185,6 +190,7 @@ main {
     display: flex;
     font-size: 24px;
     flex-grow: 2;
+    font-family: 'Noto Sans Mono', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #code-editor #line-numbers {
@@ -203,5 +209,4 @@ main {
     outline: none;
     border: none;
     color: #a7a7a7;
-    font-family: 'Noto Sans Mono', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

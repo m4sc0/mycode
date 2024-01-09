@@ -7,10 +7,16 @@ contextBridge.exposeInMainWorld('electronAPI', {
         console.log('fired openDir')
         return ipcRenderer.invoke('openDir')
     },
-    openFile: (path) => {
+    openFile: async (path) => {
         console.log('fired openFile');
-        return ipcRenderer.invoke('openFile', path);
+        try {
+            const content = await ipcRenderer.invoke('openFile', path);
+            return content;
+        } catch (error) {
+            console.error('Error in openFile:', error);
+        }
     },
+    
     minimize: () => ipcRenderer.invoke('minimize'),
     maximize: () => ipcRenderer.invoke('maximize'),
     close: () => ipcRenderer.invoke('close')
