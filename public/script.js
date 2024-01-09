@@ -1,5 +1,6 @@
 // import { ipcRenderer } from '@electron';
 import { createListFromTree } from './fileTree.js';
+import { updateLineNumbers, lineNumberListener } from './lineNumbers.js';
 
 const minBtn = document.getElementById('minBtn');
 const maxBtn = document.getElementById('maxBtn');
@@ -55,7 +56,10 @@ async function eventListenerForFolders() {
                 const fileContent = await window.electronAPI.openFile(path);
                 const editor = document.getElementById('code');
                 editor.innerHTML = fileContent;
+                updateLineNumbers();
             })
         })
     }
 }
+
+lineNumberListener();
