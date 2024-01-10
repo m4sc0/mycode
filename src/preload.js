@@ -19,5 +19,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     
     minimize: () => ipcRenderer.invoke('minimize'),
     maximize: () => ipcRenderer.invoke('maximize'),
-    close: () => ipcRenderer.invoke('close')
+    close: () => ipcRenderer.invoke('close'),
+    getDefaultPath: () => ipcRenderer.invoke('getDefaultPath'),
 })

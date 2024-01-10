@@ -1,0 +1,63 @@
+::-webkit-scrollbar {
+    background: #0000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 5px;
+}
+
+body {
+    background: #111;
+    color: #fff;
+}
+
+#titlebar {
+    background-color: #222;
+    color: #aaa;
+}
+
+#titlebar #titlebar-buttons .titlebar-button:hover {
+    color: #fff;
+    background-color: #444;
+}
+
+main {
+    color: #777;
+}
+
+#fileTree #controls {
+    background-color: #222;
+}
+
+#fileTree #controls button {
+    color: #666;
+}
+
+#fileTree #controls button:hover {
+    background-color: #444;
+    color: #aaa;
+}
+
+#fileTree #file-tree-container .folder-name::before,
+#fileTree #file-tree-container .file:before {
+    color: #00ccff;
+}
+
+#fileTree #file-tree-container .folder-name:hover,
+#fileTree #file-tree-container .file:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+#code-editor {
+    background: #333;
+}
+
+#code-editor #line-numbers {
+    color: #555;
+}
+
+#code-editor #code {
+    color: #a7a7a7;
+}

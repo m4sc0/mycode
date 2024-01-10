@@ -89,6 +89,10 @@ function apiServe() {
 	ipcMain.handle('close', () => {
 		window.close();
 	});
+
+	ipcMain.handle('getDefaultPath', () => {
+		return __dirname;
+	})
 }
 
 // Functions for api

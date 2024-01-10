@@ -1,6 +1,7 @@
 // import { ipcRenderer } from '@electron';
 import { createListFromTree } from './fileTree.js';
 import { updateLineNumbers, lineNumberListener } from './lineNumbers.js';
+import { loadSettings, applySettings } from './settings.js';
 
 const minBtn = document.getElementById('minBtn');
 const maxBtn = document.getElementById('maxBtn');
@@ -63,3 +64,10 @@ async function eventListenerForFolders() {
 }
 
 lineNumberListener();
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Loading settings...');
+    const settings = loadSettings();
+    console.log(settings);
+    applySettings(settings);
+})
